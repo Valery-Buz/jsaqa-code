@@ -1,27 +1,28 @@
-Feature: Education
+Feature: Booking tickets
 
-    Scenario: Should sucsess education
-        Given go to the page test one "http://qamid.tmweb.ru/client/index.php"
-        When choose date by selector "body > main > section:nth-child(1) > div.movie-seances__hall > ul > li:nth-child(3) > a"
-        When choose time by selector "body > main > section > div.buying-scheme > div.buying-scheme__wrapper > div:nth-child(5) > span:nth-child(5)"
-        When choose chair by selector "buying-scheme__wrapper > div:nth-child(4)"
-        When confirm booking ".acceptin-button"
-        When getting booking code ".acceptin-button"
-        Then ticket received "Электронный билет"
+
+   Scenario: Should sucsess education   
+        Given I go to the page a ticket booking site "http://qamid.tmweb.ru/client/index.php"
+        When I choose the date of the movie 
+        When I choose on the movie time this day  
+        When I choose on the chair at 3 row and 4 seat 
+        When I press on the booking button 
+        When I press the booking code 
+        Then I should see a ticket received
 
     Scenario: Should booking two tickets
-        Given go to the page "http://qamid.tmweb.ru/client/index.php"
-        When click date ".page-nav > a:nth-child(3) > span"
-        When click time ".movie div:nth-child(2) > ul > li"
-        When click first chair ".buying-scheme__wrapper > div:nth-child(7) > span:nth-child(3)"
-        When click second chair ".buying-scheme__wrapper > div:nth-child(7) > span:nth-child(4)"
-        When click booking ".acceptin-button"
-        When click confirmation code ".acceptin-button"
-        Then two ticket received "Электронный билет"
+        Given I go to the page booking site "http://qamid.tmweb.ru/client/index.php"
+        When I click the date of the movie 
+        When I click on the movie time
+        When I click on the first chair at 7 row and 2 seat
+        When I click on the second chair at 7 row and 3 seat
+        When I click on the booking button 
+        When I click on the confirmation code 
+        Then I should two ticket received 
 
     Scenario: Should check disable booking occuped chair
-        Given go to "http://qamid.tmweb.ru/client/index.php"
-        When choose date ".page-nav > a:nth-child(2) > span"
-        When choose time ".movie div:nth-child(2) > ul > li"
-        When choose chair ".buying-scheme__wrapper > div:nth-child(5) > span:nth-child(3)"
-        Then button booking disabled ".acceptin-button"
+        Given I go to the booking site "http://qamid.tmweb.ru/client/index.php"
+        When I choose movies date 
+        When I choose movies time 
+        When I choose on the taken chair at 1 row  
+        Then I should see button booking disabled 

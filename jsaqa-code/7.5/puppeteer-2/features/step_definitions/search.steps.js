@@ -1,7 +1,7 @@
 const { Given, When, Then, Before, After, And } = require("@cucumber/cucumber");
 const puppeteer = require("puppeteer");
 const expect = require("chai").expect;
-const { getText, click } = require("../../lib/response.js");
+const { getText, click } = require("../../lib/util.js");
 
 Before(async function () {
   const browser = await puppeteer.launch({
@@ -19,100 +19,71 @@ After(async function () {
     await this.browser.close();
   }
 });
-
-Given(
-  "go to the page test one {string}",
-  { timeout: 80000 },
-  async function (string) {
-    return await this.page.goto(string);
-  }
-);
-When(
-  "choose date by selector {string}",
-  { timeout: 80000 },
-  async function (string) {
-    await this.page.click(string);
-  }
-);
-When(
-  "choose time by selector {string}",
-  { timeout: 80000 },
-  async function (string) {
-    await this.page.click(string);
-  }
-);
-When(
-  "choose chair by selector {string}",
-  { timeout: 80000 },
-  async function (string) {
-    await this.page.click(string);
-  }
-);
-When("confirm booking {string}", { timeout: 80000 }, async function (string) {
-  await this.page.click(string);
+Given("I go to the page a ticket booking site {string}", { timeout: 80000 }, async function (string) {
+  return await this.page.goto(string);
 });
-When(
-  "getting booking code {string}",
-  { timeout: 80000 },
-  async function (string) {
-    await this.page.click(string);
-  }
-);
-Then("ticket received {string}", async function (string) {
-  const actual = await getText(this.page, "h2");
+When("I choose the date of the movie", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, ".page-nav > a:nth-child(4) > span");
+});
+When("I choose on the movie time this day", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, ".movie div:nth-child(2) > ul > li");
+});
+When("I choose on the chair at {int} row and {int} seat", { timeout: 80000 }, async function (int1, int2) {
+  await clickElement(this.page, "div:nth-child(${row}) > span:nth-child(${chair})");
+});
+When("I press on the booking button", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, "button.acceptin-button");
+});
+When("I press the booking code", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, "button.acceptin-button");
+});
+Then("I should see a ticket received", async function () {
+  const actual = await getText(this.page, "h2", "Электронный билет");
   expect(actual).contain(string);
 });
 
-Given("go to the page {string}", { timeout: 80000 }, async function (string) {
+Given("I go to the page booking site {string}", { timeout: 80000 }, async function (string) {
   return await this.page.goto(string);
 });
-When("click date {string}", { timeout: 80000 }, async function (string) {
-  await this.page.click(string);
+When("I click the date of the movie", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, ".page-nav > a:nth-child(3) > span");
 });
-When("click time {string}", { timeout: 80000 }, async function (string) {
-  await this.page.click(string);
+When("I click on the movie time", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, ".movie div:nth-child(2) > ul > li");
 });
-When("click first chair {string}", { timeout: 80000 }, async function (string) {
-  await this.page.click(string);
+When("I click on the first chair at {int} row and {int} seat", { timeout: 80000 }, async function (int1, int2) {
+  await clickElement(this.page, "div:nth-child(${row}) > span:nth-child(${chair})");
 });
-When(
-  "click second chair {string}",
-  { timeout: 80000 },
-  async function (string) {
-    await this.page.click(string);
-  }
-);
-When("click booking {string}", { timeout: 80000 }, async function (string) {
-  await this.page.click(string);
+When("I click on the second chair at {int} row and {int} seat", { timeout: 80000 }, async function (int1, int2) {
+  await clickElement(this.page, "div:nth-child(${row}) > span:nth-child(${chair})");
 });
-When(
-  "click confirmation code {string}",
-  { timeout: 80000 },
-  async function (string) {
-    await this.page.click(string);
-  }
-);
-Then("two ticket received {string}", async function (string) {
-  const actual = await getText(this.page, "h2");
+When("I click on the booking button", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, "button.acceptin-button");
+});
+When("I click on the confirmation code", { timeout: 80000 }, async function () {
+  return await clickElement(this.page, "button.acceptin-button");
+});
+Then("I should two ticket received", async function () {
+  const actual = await getText(this.page, "h2.ticket__check-title", "Электронный билет");
   expect(actual).contain(string);
 });
 
-Given("go to {string}", async function (string) {
+Given("I go to the booking site {string}", { timeout: 80000 }, async function (string) {
   return await this.page.goto(string);
 });
-When("choose date {string}", async function (string) {
-  await this.page.click(string);
+When("I choose movies date", async function () {
+  return await clickElement(this.page, ".page-nav > a:nth-child(2) > span");
 });
-When("choose time {string}", async function (string) {
-  await this.page.click(string);
+When("I choose movies time", async function () {
+  return await clickElement(this.page, ".movie div:nth-child(2) > ul > li");
 });
-When("choose chair {string}", async function (string) {
-  await this.page.click(string);
+When("I choose on the taken chair at {int} row", async function (int1) {
+  await clickElement(this.page, ".buying-scheme__wrapper > div:nth-child(1)");
 });
-Then("button booking disabled {string}", async function (string) {
+Then("I should see button booking disabled", async function () {
   await this.page.waitForSelector(string);
   const result = await this.page.$eval(string, (el) =>
-    el.getAttribute("disabled")
+    el.getAttribute(".acceptin-button")
   );
   console.log(result);
   expect(result).to.equal("true");
