@@ -20,8 +20,8 @@ After(async function () {
     await this.browser.close();
   }
 });
-Given("I go to the page a ticket booking site", { timeout: 80000 }, async function (string) {
-  return await this.page.goto($,{string});
+Given("I go to the {string} page a ticket booking site", { timeout: 80000 }, async function (string) {
+  return await this.page.goto(`http://qamid.tmweb.ru/${string}/index.php`);
 });
 When("I choose the {int} of the current month", { timeout: 80000 }, async function (int) {
   return await clickElement(this.page, `.page-nav > a:nth-child(${int}) > span`);
@@ -43,8 +43,8 @@ Then("I should see a ticket received", async function () {
   expect(actual).contain(string);
 });
 
-Given("I go to the page booking site", { timeout: 80000 }, async function (string) {
-  return await this.page.goto($,{string});
+Given("I go to the {string} page booking site", { timeout: 80000 }, async function (string) {
+  return await this.page.goto(`http://qamid.tmweb.ru/${string}/index.php`);
 });
 When("I click the {int} of the current month", { timeout: 80000 }, async function (int) {
   return await clickElement(this.page, `.page-nav > a:nth-child(${int}) > span`);
@@ -69,8 +69,8 @@ Then("I should two ticket received", async function () {
   expect(actual).contain(string);
 });
 
-Given("I go to the booking site", { timeout: 80000 }, async function (string) {
-  return await this.page.goto($,{string});
+Given("I go to the {string} booking site", { timeout: 80000 }, async function (string) {
+  return await this.page.goto(`http://qamid.tmweb.ru/${string}/index.php`);
 });
 When("I choose the date of the movie on the {int} of the current month", async function (int) {
   return await clickElement(this.page, `.page-nav > a:nth-child(${int}) > span`);
