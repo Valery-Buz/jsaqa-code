@@ -14,7 +14,7 @@ describe("test", () => {
   afterEach(() => {
     page.close();
   });
-  test.skip("one ticket booking today", async () => {
+  test("one ticket booking today", async () => {
     await clickElement(page, ".page-nav > a:nth-child(4) > span"); 
     await clickElement(page, ".movie div:nth-child(2) > ul > li"); 
     await clickElement(page, ".buying-scheme__wrapper > div:nth-child(3) > span:nth-child(5)");
@@ -27,7 +27,7 @@ describe("test", () => {
     );
   });
 
-  test.skip("booking another time two tickets", async () => {
+  test("booking another time two tickets", async () => {
     await clickElement(page, "nav>a:nth-child(4)"); 
     await clickElement(page, "section > div:nth-child(3) > ul > li");
     await clickElement(page, ".buying-scheme__wrapper > div:nth-child(2) > span:nth-child(1)");
