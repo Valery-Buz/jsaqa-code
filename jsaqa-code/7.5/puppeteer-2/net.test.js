@@ -29,7 +29,7 @@ describe("test", () => {
 
   test("booking another time two tickets", async () => {
     await clickElement(page, "nav>a:nth-child(4)"); 
-    await clickElement(page, "section > div:nth-child(3) > ul > li");
+    await clickElement(page, "section > div:nth-child(2) > ul > li");
     await clickElement(page, ".buying-scheme__wrapper > div:nth-child(2) > span:nth-child(1)");
     await clickElement(page, ".buying-scheme__wrapper > div:nth-child(2) > span:nth-child(2)");
     await clickElement(page, "button.acceptin-button");
