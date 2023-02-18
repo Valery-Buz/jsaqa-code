@@ -38,9 +38,9 @@ When("I press on the booking button", { timeout: 80000 }, async function () {
 When("I press the booking code", { timeout: 80000 }, async function () {
   return await clickElement(this.page, "button.acceptin-button");
 });
-Then("I should see a ticket received", async function () {
-  const actual = await getText(this.page, "h2");
-  expect(actual).contain(string);
+Then("I should see a ticket received {string}", async function (string) {
+  const actual = await getText(this.page, `h2`);
+  expect(actual).contain("Электронный билет");
 });
 
 Given("I go to the {string} page booking site", { timeout: 80000 }, async function (string) {
@@ -64,8 +64,8 @@ When("I click on the booking button", { timeout: 80000 }, async function () {
 When("I click on the confirmation code", { timeout: 80000 }, async function () {
   return await clickElement(this.page, "button.acceptin-button");
 });
-Then("I should two ticket received", async function () {
-  const actual = await getText(this.page, "h2");
+Then("I should two ticket received {string}", async function (string) {
+  const actual = await getText(this.page, `h2`);
   expect(actual).contain(string);
 });
 
@@ -81,7 +81,7 @@ When("I choose movies time at {int} am", async function (int) {
 When("I choose on the taken chair at row {int}", async function (int) {
   await clickElement(this.page, `.buying-scheme__wrapper > div:nth-child(${int}`);
 });
-Then("I should see button booking disabled", async function () {
+Then("I should see button booking disabled {string}", async function (string) {
   await this.page.waitForSelector(string);
   const result = await this.page.$eval(string, (el) =>
     el.getAttribute("disabled")
