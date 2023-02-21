@@ -35,7 +35,7 @@ When("I choose on the chair at row {int} and seat {int}", { timeout: 80000 }, as
 When("I press on the booking button", { timeout: 80000 }, async function () {
   return await clickElement(this.page, "button.acceptin-button");
 });
-When("I press the booking code", { timeout: 80000 }, async function () {
+When("I click on the confirmation code", { timeout: 80000 }, async function () {
   return await clickElement(this.page, "button.acceptin-button");
 });
 Then("I should see a ticket received {string}", async function (string) {
@@ -46,23 +46,11 @@ Then("I should see a ticket received {string}", async function (string) {
 Given("I go to the {string} page booking site", { timeout: 80000 }, async function (string) {
   return await this.page.goto(`http://qamid.tmweb.ru/${string}/index.php`);
 });
-When("I click the {int} of the current month", { timeout: 80000 }, async function (int) {
-  return await clickElement(this.page, `.page-nav > a:nth-child(${int}) > span`);
-});
-When("I click a new session at {int} am", { timeout: 80000 }, async function (int) {
-  return await clickElement(this.page, `.movie div:nth-child(${int}) > ul > li`);
-});
 When("I click on the first chair at row {int} and seat {int}", { timeout: 80000 }, async function (int1, int2) {
   await clickElement(this.page, `div:nth-child(${int1}) > span:nth-child(${int2})`);
 });
 When("I click on the second chair at row {int} and seat {int}", { timeout: 80000 }, async function (int1, int2) {
   await clickElement(this.page, `div:nth-child(${int1}) > span:nth-child(${int2})`);
-});
-When("I click on the booking button", { timeout: 80000 }, async function () {
-  return await clickElement(this.page, "button.acceptin-button");
-});
-When("I click on the confirmation code", { timeout: 80000 }, async function () {
-  return await clickElement(this.page, "button.acceptin-button");
 });
 Then("I should two ticket received {string}", async function (string) {
   const actual = await getText(this.page, `h2`);
@@ -74,9 +62,6 @@ Given("I go to the {string} booking site", { timeout: 80000 }, async function (s
 });
 When("I choose the date of the movie on the {int} of the current month", async function (int) {
   return await clickElement(this.page, `.page-nav > a:nth-child(${int}) > span`);
-});
-When("I choose movies time at {int} am", async function (int) {
-  return await clickElement(this.page, `.movie div:nth-child(2) > ul > li`);
 });
 When("I choose on the taken chair at row {int}", async function (int) {
   await clickElement(this.page, `.buying-scheme__wrapper > div:nth-child(${int}`);
